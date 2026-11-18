@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Momento · Administration</title>
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+  <!-- Connexion -->
+  <section id="login" class="login">
+    <form class="box glass" id="loginForm">
+      <img src="assets/momento-logo.png" width="110" alt="Momento Expérience">
+      <h1>Administration</h1>
+      <p id="loginHint">Espace réservé à l'administrateur Momento.</p>
+      <input type="password" id="pw" placeholder="Mot de passe" autocomplete="current-password" required>
+      <button class="btn-main" type="submit">Se connecter</button>
+      <div class="err" id="loginErr"></div>
+    </form>
+  </section>
+
+  <!-- Tableau de bord -->
+  <section id="dash" hidden>
+    <header class="a-top">
+      <img src="assets/momento-logo.png" width="44" alt="">
+      <h1>Mes mariages</h1>
+      <button class="btn-pri" id="btnNew">+ Nouveau mariage</button>
+    </header>
+    <div id="list" class="list"></div>
+  </section>
+
+  <!-- Édition -->
+  <section id="edit" hidden>
+    <header class="a-top">
+      <button class="btn-sec" id="btnBack">← Retour</button>
+      <h1 id="editTitle">Nouveau mariage</h1>
+    </header>
+    <div class="edit-grid">
+      <form id="form" class="form">
+        <fieldset>
+          <legend>Mariage</legend>
+          <label>Nom affiché <input name="name" required placeholder="Mariage Mballa"></label>
+          <label>Date du mariage <input name="date" type="date"></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Base de données des invités</legend>
+          <label>Lien du Google Sheet <input name="sheetUrl" required placeholder="https://docs.google.com/spreadsheets/d/…/edit"></label>
+          <label>Nom de l'onglet <input name="tab" placeholder="Invites"></label>
+          <p class="help">Colonnes attendues : ID_Invitation, Nom_Invite, Numero_Table, Statut_Presence, Heure_scan. Les colonnes Appareil_scan et Mode_entree sont ajoutées automatiquement.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Apparence</legend>
+          <div class="row">
+            <label>Logo du mariage
+              <input type="file" accept="image/*" data-img="logo">
+              <span class="imgbox" id="logoBox"></span>
+            </label>
+            <label>Photo de fond (accueil)
+              <input type="file" accept="image/*" data-img="background">
+              <span class="imgbox wide" id="bgBox"></span>
+            </label>
+          </div>
+          <div class="row">
+            <label>Style de la date <select name="dateFont"></select></label>
+            <label>Format <select name="dateFormat"></select></label>
+          </div>
+          <div class="row">
+            <label>Couleur de la date <input name="dateColor" type="color" value="#f3d9b8"></label>
+            <label>Couleur d'accent <input name="accent" type="color" value="#c9925f"></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sécurité des QR codes</legend>
+          <label class="check-row"><input type="checkbox" name="requireSecret"> Exiger le code secret dans les QR codes</label>
+          <p class="help">Avec cette option, un QR fabriqué à la main (par ex. « FAINV-012 » sans code) est refusé. N'activez-la que si les invitations envoyées contiennent les nouveaux QR codes.</p>
+          <button type="button" class="btn-sec" id="btnSecrets" hidden>Générer les codes secrets et mettre à jour les QR</button>
+          <div class="note" id="secretsInfo"></div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="btn-pri" type="submit" id="btnSave">Enregistrer</button>
+          <button class="btn-danger" type="button" id="btnDelete" hidden>Supprimer</button>
+        </div>
+        <div class="result" id="result" hidden></div>
+      </form>
+
+      <!-- Aperçu -->
+      <aside class="preview-wrap">
+        <div class="preview-label">Aperçu de la fiche invité</div>
+        <div class="phone">
+          <div class="bg" id="pvBg"></div>
+          <div class="card glass pv-card">
+            <img class="wlogo" id="pvLogo" alt="" hidden>
+            <div class="date" id="pvDate"></div>
+            <div class="inv">Invitation N° <b>FAINV-014</b></div>
+            <div class="name">Lionnel</div>
+            <div class="table-box"><small>Table</small><strong>ROYAUTE</strong></div>
+            <div class="meta"><span class="check">✓</span> Enregistré à 18:42:05 · Entrée-2</div>
+            <button class="btn-main" type="button">Enregistré</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="toasts" id="toasts"></div>
+  <script src="config.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

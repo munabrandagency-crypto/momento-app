@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#2a1910">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Momento Scanner</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="bg" id="bg"></div>
+
+  <!-- Animation d'ouverture -->
+  <div id="splash">
+    <div class="splash-glow"></div>
+    <div class="splash-logo"><img src="assets/momento-logo.png" alt="Momento Expérience"></div>
+  </div>
+
+  <!-- Accueil -->
+  <main id="home" hidden>
+    <header class="top">
+      <img class="mini-logo" src="assets/momento-logo.png" alt="">
+      <div class="titles">
+        <h1 id="evtName">Momento</h1>
+        <div class="date" id="evtDate"></div>
+      </div>
+      <button class="icon-btn glass" id="btnSync" title="Synchroniser" aria-label="Synchroniser">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/><path d="M3 21v-5h5"/></svg>
+      </button>
+    </header>
+
+    <div class="center-wrap">
+      <img class="wedding-logo-home" id="homeLogo" alt="" hidden>
+    </div>
+
+    <section class="hero">
+      <button class="btn-scan glass" id="btnScan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="4" height="4" rx=".5"/><rect x="13" y="7" width="4" height="4" rx=".5"/><rect x="7" y="13" width="4" height="4" rx=".5"/><path d="M13 13h4v4"/></svg>
+        Scanner un QR code
+      </button>
+      <label class="search glass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Trouver un invité…" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search">
+        <button class="clear" id="qClear" hidden aria-label="Effacer">✕</button>
+      </label>
+    </section>
+
+    <div class="results" id="results"></div>
+
+    <footer class="statusbar glass">
+      <button class="dev" id="btnDevice">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        <span id="devName">—</span>
+      </button>
+      <span class="net"><span class="dot" id="netDot"></span><span id="netTxt">En ligne</span></span>
+      <span class="count" id="count">0 / 0</span>
+    </footer>
+  </main>
+
+  <!-- Scanner -->
+  <section id="scanner" hidden>
+    <video id="video" playsinline muted></video>
+    <div class="frame"><div class="laser"></div></div>
+    <div class="scan-top">
+      <button class="icon-btn glass" id="scanClose" aria-label="Retour">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="icon-btn glass" id="torch" hidden aria-label="Lampe">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+      </button>
+    </div>
+    <div class="scan-hint">Placez le QR code de l'invité dans le cadre</div>
+    <div class="scan-bottom">
+      <button class="glass" id="scanSearch">Rechercher un nom</button>
+    </div>
+    <div class="cam-error" id="camError" hidden></div>
+  </section>
+
+  <!-- Fiche / alertes -->
+  <div class="sheet-wrap" id="sheet" hidden></div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="config.js"></script>
+  <script src="lib/jsQR.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
