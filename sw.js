@@ -1,5 +1,5 @@
 /* Momento Scanner — service worker : l'application fonctionne sans internet */
-const VERSION = 'momento-v2';
+const VERSION = 'momento-v3';
 const FILES = [
   './',
   'admin.html',
